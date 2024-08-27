@@ -26,7 +26,7 @@
  * Math class: https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_methods_system_math.htm
  * Classes: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_understanding.htm
  *
- * @author Your Name
+ * @author Catherine Popovich
  */
 
 public with sharing class ClassesObjectsMethods {
@@ -40,17 +40,27 @@ public with sharing class ClassesObjectsMethods {
      */
     public static List<String> practiceStringMethods() {
         // Initialize a String with 'Hello, Salesforce!'
-        
-        // Get the length of the String        
+        String helloString = 'Hello, Salesforce!';
+        //Get the length of the String   
+        //*because .length() returns an integer, I need to cast the value from integer to string
+        String stringLength = '';
+        stringLength = String.valueOf(helloString.length());
         // Get a substring of the String of the first 5 characters
+        String substringFirstFive = helloString.substring(0, 5);
         // Convert the String to lower case
-        
+        String lowerCaseString = helloString.toLowerCase();
         // Return the list with the string data
+        //*why am I returning the list? that causes it to exit the method and an "unreachable statement" error.
+        //*the direction here is unclear. I am creating a new list and adding elements. 
+        List<String> newStringList = new List<String>();
         // In the first position add the string length
+        newStringList.add(stringLength);
         // In the second position add the substring
+        newStringList.add(substringFirstFive);
         // In the third position add the string in lower case
-
-        return null; // Replace null with the variable you used to store the result
+        newStringList.add(lowerCaseString);
+        return newStringList; // Replace null with the variable you used to store the result
+        //*why am I returning a variable? aren't I returning a list? I think it is boilerplate. return the list.
     }
 
     /**
@@ -61,15 +71,16 @@ public with sharing class ClassesObjectsMethods {
      * @return A list of boolean values indicating whether the string starts with 'Sales', ends with 'Force', or contains 'Awesome'.
      */
     public static List<Boolean> checkStringContent(String input) {
+
         // Initialize a list to store the results
-        
+        List<Boolean> myList = new List<Boolean>();
         // Check if the string starts with 'Sales'
-        
+        myList.add(input.startsWith('Sales'));
         // Check if the string ends with 'Force'
-        
+        myList.add(input.endsWith('Force'));
         // Check if the string contains 'Awesome'
-        
-        return null; // Replace null with the variable you used to store the result
+        myList.add(input.contains('Awesome'));
+        return myList; // Replace null with the variable you used to store the result
     }
 
     /**
@@ -80,16 +91,30 @@ public with sharing class ClassesObjectsMethods {
      * @return A string consisting of only unique words from the input sentence.
      */
     public static String removeDuplicateWords(String sentence) {
-        // Split the sentence into words
-
-        // Create a set to store the unique words
-
-        // Add each word to the set
-
-        // Join the unique words back into a sentence
-
-        // Return the sentence with unique words
-        return null; // Replace null with the variable you used to store the result
+        
+    // Split the sentence into words
+    //*string class split(regExp)
+    List<String> splitSent = sentence.split(' ');
+    // Create a set to store the unique words
+    Set<String> uniqueStrings = new Set<String>();
+    // Add each word to the set
+    for (String x : splitSent) {
+        uniqueStrings.add(x);
+    }
+    // Join the unique words back into a sentence
+    //*create variable
+    String newSentence = ' ';
+    //*for each element, add a blank space at the end then add it to the variable
+    for (String y : uniqueStrings){
+        newSentence += y+' ';
+    }
+    //*create new variable to hold trimmed sentence
+    //*trim off the blank space at the end then add to new variable
+    //*maybe change to 'newSentence = newSentence.trim();'
+    String trimmedSentence = newSentence.trim();
+    // Return the sentence with unique words
+    return trimmedSentence;
+    
     }
 
     /**
@@ -102,16 +127,20 @@ public with sharing class ClassesObjectsMethods {
      */
     public static Integer countVowels(String str) {
         // Initialize the result Integer
-
-        /*
-        for () {
-            // get individual characters from the string - hint use substring or split
+        Integer countVowels = 0;
+        // get individual characters from the string - hint use substring or split
+        //*loop through each char in string using substring
+        for (Integer x=0; x<str.length(); x++) {
+            String indivCharacter = str.substring(x, x+1);
             // check if the character is a vowel
             // if it is a vowel, increment the result Integer
+            //*use string contains() method
+            if ('aeiou'.contains(indivCharacter) ){
+                countVowels++;
+            }
         }
-        */
-
-        return null; // Replace null with the variable you used to store the result
+        
+        return countVowels; 
     }
 
     /**
@@ -122,20 +151,24 @@ public with sharing class ClassesObjectsMethods {
      * @return A string containing the names of scientists that contain the letter 'g'.
      */
     public static String findTheScientist() {
-        // The list of scientists' names
         List<String> scientistNames = new List<String>{'Tim Berners-Lee', 'Alan Turing', 'Grace Hopper', 'Donald Knuth', 'Guido van Rossum', 'Ken Thompson', 'Stephen Hawking'};
-
         // The variable to store the concatenated string
-
+        String varNames = '';
         // Loop through the list of scientists' names
-
+        for (String currentName : scientistNames){
             // If the name doesn't contain the letter 'G', skip this iteration
-
+            Boolean containsG = (currentName.contains('g') || currentName.contains('G'));
+            
+            if (containsG == true){
             // Add the name to the result string, followed by a comma
-
+            varNames += currentName + ',';
+            }
+            
+        }
         // Remove the last comma from the result string
+        varNames = varNames.removeEnd(',');
 
-        return null; // Replace null with the variable you used to store the result
+        return varNames;
     }
 
     /**
@@ -378,6 +411,25 @@ public with sharing class ClassesObjectsMethods {
      * @return The Person object of the older person.
      */
     public static Person getOlderPerson(Person person1, Person person2) {
+        /*
+        if (person1 = null || person2 = null){
+            break;
+        }
+        
+        //should this be if or else if?
+        if (person1 == person2 || person1 > person2){
+        return person1;
+        }
+
+        else {
+        
+        return person2;
+        
+        }
+
+    */
+    
         return null; // Replace null with the variable you used to store the result
-    }
+    }    
+    
 }
