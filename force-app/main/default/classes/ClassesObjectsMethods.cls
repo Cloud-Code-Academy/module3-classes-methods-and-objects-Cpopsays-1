@@ -180,12 +180,16 @@ public with sharing class ClassesObjectsMethods {
      * @return The absolute value of the difference
      */
     public static Double calculateDifferenceOfSquares(Double a, Double b) {
+        //*convert double to integer
+        Decimal decimalA = decimal.valueOf(a);
+        Decimal decimalB = decimal.valueOf(b);
         // Square the input numbers using the Math.pow() function
-
+        Decimal squareA = decimalA.pow(2);
+        Decimal squareB = decimalB.pow(2);
         // Calculate the absolute difference using Math.abs() function
-
+        Double diffOfSquares = squareA - squareB;
         // Return the result
-        return null; // Replace null with the variable you used to store the result
+        return diffOfSquares; 
     }
 
     /**
@@ -196,9 +200,11 @@ public with sharing class ClassesObjectsMethods {
      */
     public static Integer generateRandomNumber() {
         // Use Math class to generate number between 50 and 100
-
+        Integer randomInt = 0;
+        //I found this on pg 103 of sf apex reference doc
+        randomInt = math.mod(math.abs(crypto.getRandomInteger()), 100);
         // Return the random integer
-        return null; // Replace null with the variable you used to store the result
+        return randomInt;
     }
 
     /**
