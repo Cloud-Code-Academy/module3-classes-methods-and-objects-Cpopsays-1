@@ -215,11 +215,12 @@ public with sharing class ClassesObjectsMethods {
      */
     public static String getCurrentDate() {
         // Get the todays date
-
+        Date todayDate = date.today();
+        String todayString = todayDate.format();
         // Format the current date
-
-        // Return the result
-        return null; // Replace null with the variable you used to store the result
+        
+        // Return result
+        return todayString; // Replace null with the variable you used to store the result
     }
 
     /**
@@ -231,13 +232,20 @@ public with sharing class ClassesObjectsMethods {
     public static String getDayOfWeek(DateTime dt) {
         // Define a map of day of the week as a key and day number as the value
         // Monday = 1, Tuesday = 2, etc.
-
+        Map<String, Integer> mapDayNumber = new Map<String, Integer>();
+        mapDayNumber.put('Monday', 1);
+        mapDayNumber.put('Tuesday', 2);
+        mapDayNumber.put('Wednesday', 3);
+        mapDayNumber.put('Thursday', 4);
+        mapDayNumber.put('Friday', 5);
+        mapDayNumber.put('Saturday', 6);
+        mapDayNumber.put('Sunday', 7);
         // Get the day name using .format('EEEE');
-
+        String dayName = dt.format('EEEE');
         // Get the day number from the map using the day name
-
+        String dayNumber = String.valueOf(mapDayNumber.get(dayName));
         // Return the result as a string
-        return null; // Replace null with the variable you used to store the result
+        return dayNumber; 
     }
 
 
@@ -251,10 +259,11 @@ public with sharing class ClassesObjectsMethods {
      * @return The a positive number years between the two dates, or null if either date is null.
      */
     public static Integer calculateYearDifference(Date d1, Date d2) {
-
+        Integer year1 = d1.year();
+        Integer year2 = d2.year();
         // Subtract the difference in years
-
-        return null; // Replace null with the variable you used to store the result
+        Integer yearDiff = year2 - year1;
+        return yearDiff; // Replace null with the variable you used to store the result
     }
 
     /**
@@ -266,19 +275,21 @@ public with sharing class ClassesObjectsMethods {
      */
     public class Book {
         // Declare three public instance variables - title, author, pages
-        // title
-        // author
-        // pages
+        public String title; 
+        public String author;
+        public Integer pages;
     
         // Book constructor to initialize the title and author
-        public Book() {
+        public Book(String newTitle, String newAuthor) {
             // Initialize the title and author
+            this.title = newTitle;
+            this.author = newAuthor;
         }
     
         // Method that returns the details of the book
         public String getBookDetails() {
             // return A string containing the details of the book in the format "Title: <title>, Author: <author>"
-            return null; // Replace null with the variable you used to store the result
+            return 'Title: ' + title + ', Author: ' + author;
         }
     }
     
@@ -291,11 +302,11 @@ public with sharing class ClassesObjectsMethods {
      */
     public static String createAndGetBookDetails() {
         // Create a Book object with title "A Brief History of Time" and author "Stephen Hawking"
-
+        Book myBook1 = new Book('A Brief History of Time', 'Stephen Hawking');
         // Call the getBookDetails method on the book object to get the details of the book
-
+        String myBookDetails = myBook1.getBookDetails();
         // Return the details of the book
-        return null; // Replace null with the variable you used to store the result
+        return myBookDetails; 
     }
 
     /**
@@ -309,18 +320,20 @@ public with sharing class ClassesObjectsMethods {
      */
     public static List<Book> generateBookList(Book myBook1) {
         // Create a list of books
-
+        List<Book> newBooks = new List<Book>();
+        newBooks.add(myBook1);
         // Update the title and author of myBook1
-
+        myBook1.title = 'Hello title';
+        myBook1.author = 'Cat Popov';
         // Update the pages for myBook1 to 352
-
+        myBook1.pages = 352;
         // Create a new Book object with title "A Brief History of Time" and author "Stephen Hawking"
-
+        Book myBook2 = new Book('A Brief History of Time', 'Stephen Hawking');
         // Update the pages for A Brief History of Time to 256
-
+        myBook2.pages = 256;
         // Add the book to the list
-        
-        return null; // Replace null with the variable you used to store the result      
+        newBooks.add(myBook2);
+        return newBooks; 
     }
 
 
@@ -333,20 +346,45 @@ public with sharing class ClassesObjectsMethods {
      */
     public class Person {
         // Declare private two instance variables - (TEXT) name and (Number) age
-        
+        private String name;
+        private Integer age;
         // Constructor to initialize the name and age
-    
+        public Person(String name, Integer age){
+            this.name = name;
+            this.age = age;
+        }
         // Method introduceYourself that returns the details of the person        
         // Return a string in the format "Hello, my name is <name> and I am <age> years old."
         // For example, introduceYourself() should return a string like "Hello, my name is John Doe and I am 28 years old."
 
+        
+        public string introduceYourself(){
+            return 'Hello, my name is ' +this.name +' and I am ' +this.age +' years old.';
+        }
         // Getter method that returns the name of the person
-
+        public String getNameMethod(){
+            return name;
+        }
         // Getter method that returns the age of the person
-
+        public Integer getAgeMethod(){
+            return age;
+        }
         // Setter method that sets the name of the person
-
+        //*I do not understand why I needed to add void to this method or if this is correct
+        public void setPersonName(String name){
+            this.name = name;
+        }
+        
         // Setter method that sets the age of the person
+        //*I do not understand why I needed to add void to this method or if this is correct
+        public void setPersonAge(Integer age){
+            if (age > 0) {
+                this.age = age;
+            } else {
+                system.debug('Age must be greater than 0');
+            }
+        }
+
     }
 
     /**
@@ -360,14 +398,15 @@ public with sharing class ClassesObjectsMethods {
         List<String> results = new List<String>();
         // Create a new instance of Person class
         // Name the person 'John Doe' and set the age to 28
+        Person newPerson = new Person('John Doe', 28);
 
         // Add the details of the person using the introduceYourself method
-
+        results.add(newPerson.introduceYourself());
         // Get the name of the person using the getter method and add it to the list
-
+        results.add(newPerson.getNameMethod());
         // Get the age of the person using the getter method and add it to the list
-        
-        return null; // Replace null with the variable you used to store the result
+        results.add(String.valueOf(newPerson.getAgeMethod()));
+        return results; 
     }
 
     /**
@@ -379,9 +418,9 @@ public with sharing class ClassesObjectsMethods {
      */
     public static Person createPerson(String name, Integer age) {
         // Create a new instance of the Person class using the provided name and age
-        
+        Person newPerson = new Person(name, age);
         // Return the new instance of the Person class
-        return null; // Replace null with the variable you used to store the result
+        return newPerson;
     }
 
     /**
@@ -394,15 +433,20 @@ public with sharing class ClassesObjectsMethods {
      * @return A list of new Person objects.
      */
     public static List<Person> createMultiplePersons(List<String> names, Integer age) {
+        //list to store the person objects
+        List<Person> persons = new List<Person>();
 
         // Loop through each name in the provided list of names
+        for (String name : names){
+
             // Create a new Person object for each name
-            
+            Person newPerson = new Person(name, age);
             // Add the new Person object to the list of Person objects
+            persons.add(newPerson);
         
-        
+        }
         // Return the list of Person objects
-        return null; // Replace null with the variable you used to store the result
+        return persons; 
     }
 
 
@@ -417,25 +461,16 @@ public with sharing class ClassesObjectsMethods {
      * @return The Person object of the older person.
      */
     public static Person getOlderPerson(Person person1, Person person2) {
-        /*
-        if (person1 = null || person2 = null){
-            break;
-        }
-        
-        //should this be if or else if?
-        if (person1 == person2 || person1 > person2){
-        return person1;
-        }
+        Integer person1Age = person1.getAgeMethod();
+        Integer person2Age = person2.getAgeMethod();
 
-        else {
-        
-        return person2;
-        
+        if (person1Age > person2Age){
+            return person1;
+        } else {
+            return person2;
         }
-
-    */
     
-        return null; // Replace null with the variable you used to store the result
+
     }    
     
 }
