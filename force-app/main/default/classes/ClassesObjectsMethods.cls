@@ -200,9 +200,10 @@ public with sharing class ClassesObjectsMethods {
      */
     public static Integer generateRandomNumber() {
         // Use Math class to generate number between 50 and 100
-        Integer randomInt = 0;
-        //I found this on pg 103 of sf apex reference doc
-        randomInt = math.mod(math.abs(crypto.getRandomInteger()*10), 100);
+        Integer min = 50;
+        Integer max = 100;
+        //i looked this up, I did not find anything in the paex reference guide, I don't understand how this works
+        Integer randomInt = Math.round(Math.random() * (max - min)) + min;
         // Return the random integer
         return randomInt;
     }
