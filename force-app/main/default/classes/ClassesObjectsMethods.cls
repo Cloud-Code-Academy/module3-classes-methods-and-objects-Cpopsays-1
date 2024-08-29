@@ -202,7 +202,7 @@ public with sharing class ClassesObjectsMethods {
         // Use Math class to generate number between 50 and 100
         Integer randomInt = 0;
         //I found this on pg 103 of sf apex reference doc
-        randomInt = math.mod(math.abs(crypto.getRandomInteger()), 100);
+        randomInt = math.mod(math.abs(crypto.getRandomInteger()*10), 100);
         // Return the random integer
         return randomInt;
     }
@@ -259,11 +259,18 @@ public with sharing class ClassesObjectsMethods {
      * @return The a positive number years between the two dates, or null if either date is null.
      */
     public static Integer calculateYearDifference(Date d1, Date d2) {
+        //check if date is null before doing anything with these values
+        if (d1 == null || d2 == null) {
+            return null;
+        }
+        //get the year as integer from the date variable type
         Integer year1 = d1.year();
         Integer year2 = d2.year();
-        // Subtract the difference in years
-        Integer yearDiff = year2 - year1;
-        return yearDiff; // Replace null with the variable you used to store the result
+        // Subtract the difference in years using math.abs to ensure result is positive
+        //not sure if I need to use math.abs but I think it will catch edge cases
+        Integer yearDiff = Math.abs(year1 - year2);
+        return yearDiff;
+        
     }
 
     /**
@@ -349,7 +356,7 @@ public with sharing class ClassesObjectsMethods {
         private String name;
         private Integer age;
         // Constructor to initialize the name and age
-        public Person(String name, Integer age){
+        public Person (String name, Integer age){
             this.name = name;
             this.age = age;
         }
@@ -362,22 +369,22 @@ public with sharing class ClassesObjectsMethods {
             return 'Hello, my name is ' +this.name +' and I am ' +this.age +' years old.';
         }
         // Getter method that returns the name of the person
-        public String getNameMethod(){
+        public String getName(){
             return name;
         }
         // Getter method that returns the age of the person
-        public Integer getAgeMethod(){
+        public Integer getAge(){
             return age;
         }
         // Setter method that sets the name of the person
         //*I do not understand why I needed to add void to this method or if this is correct
-        public void setPersonName(String name){
+        public void setName(String name){
             this.name = name;
         }
         
         // Setter method that sets the age of the person
         //*I do not understand why I needed to add void to this method or if this is correct
-        public void setPersonAge(Integer age){
+        public void setAge(Integer age){
             if (age > 0) {
                 this.age = age;
             } else {
@@ -403,9 +410,9 @@ public with sharing class ClassesObjectsMethods {
         // Add the details of the person using the introduceYourself method
         results.add(newPerson.introduceYourself());
         // Get the name of the person using the getter method and add it to the list
-        results.add(newPerson.getNameMethod());
+        results.add(newPerson.getName());
         // Get the age of the person using the getter method and add it to the list
-        results.add(String.valueOf(newPerson.getAgeMethod()));
+        results.add(String.valueOf(newPerson.getAge()));
         return results; 
     }
 
@@ -461,8 +468,8 @@ public with sharing class ClassesObjectsMethods {
      * @return The Person object of the older person.
      */
     public static Person getOlderPerson(Person person1, Person person2) {
-        Integer person1Age = person1.getAgeMethod();
-        Integer person2Age = person2.getAgeMethod();
+        Integer person1Age = person1.getAge();
+        Integer person2Age = person2.getAge();
 
         if (person1Age > person2Age){
             return person1;
