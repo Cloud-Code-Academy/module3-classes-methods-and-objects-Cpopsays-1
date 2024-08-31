@@ -1,3 +1,4 @@
+[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=15561130&assignment_repo_type=AssignmentRepo)
 # Developer Kickstart Module 3: Classes, Methods, and Objects
 
 This repository is part of the Developer Kickstart module 3 curriculum at Cloud Code Academy. It's designed to help beginner Salesforce developers learn and practice the principles of Object-Oriented Programming in the Apex language, specifically focusing on classes, methods, and objects.
